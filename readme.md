@@ -1,5 +1,7 @@
 In this Repo i will share my daily leetcode problems which i am solving daily so check my leetcode profile for verification
 
+And also i will share my Bug Bounty Practice Journey
+
 https://leetcode.com/u/bhavesh1899287/
 
 

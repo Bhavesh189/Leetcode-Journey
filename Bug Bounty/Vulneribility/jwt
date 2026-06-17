@@ -1,0 +1,1 @@
+solved jwt vulneribility lab where developer use jwt.decode() where it need to use jwt.verify()
