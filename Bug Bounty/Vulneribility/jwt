@@ -1,5 +1,7 @@
-solved jwt vulneribility lab where developer use jwt.decode() where it need to use jwt.verify()
+1 solved jwt vulneribility lab where developer use jwt.decode() where it need to use jwt.verify()
 
-alg == none
+2 alg == none
 /admin page go and delete user
 sub : administrator
+
+3 bruteforce secret using hashcat
