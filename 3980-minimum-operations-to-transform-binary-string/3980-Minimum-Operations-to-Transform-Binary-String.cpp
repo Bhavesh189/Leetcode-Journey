@@ -1,30 +1,49 @@
 class Solution {
 public:
     int minOperations(string s1, string s2) {
-        int n = s1.size();
+        if(s1 == s2) return 0;
 
-        long long edges = 0, plus = 0, minus = 0;
-        vector<bool> covered(n, false);
+        int ans = 0;
 
-        for (int i = 0; i < n; i++) {
-            char a = s1[i], b =s2[i];
-            if (a == '0' && b == '1') {
-                plus++;
-            } else if (a == '1' && b == '0') {
-                minus++;
-                if (!covered[i]) {
-                    if (i + 1 < n) {
-                        edges++;
-                        covered[i] = covered[i + 1] = true;
-                    } else if (i - 1 >= 0) {
-                        edges++;
-                        covered[i] = true;
-                    } else {
-                        return -1;
-                    }
-                }
+        for(int i = 0; i < s1.size(); i++) {
+            if(s1[i] == s2[i]) continue;
+
+            if(s1[i] == '0') {
+                s1[i] = '1';
+                ans++;
+                continue;
+            }
+
+            if(i+1 < s1.size() && s1[i+1] == '1') {
+                ans++;
+                s1[i] = s1[i+1] = '0';
+                continue;
+            }
+
+            if(i-1 >= 0 && s1[i-1] == '1') {
+                ans++;
+                ans += ('1' == s2[i-1]);
+                s1[i-1] = s2[i-1];
+                s1[i] = s2[i];
+                continue;
+            }
+
+            if(i+1 < s1.size() && s1[i+1] == '0') {
+                ans += 2;
+                s1[i] = s2[i];
+                continue;
+            }
+
+            if(i-1 >= 0 && s1[i-1] == '0') {
+                ans += 2;
+                s1[i-1] = s2[i-1];
+                s1[i] = s2[i];
+                continue;
             }
         }
-        return (int)(3 * edges + plus - minus);
+
+        if(s1 != s2) return -1;
+
+        return ans;
     }
 };
