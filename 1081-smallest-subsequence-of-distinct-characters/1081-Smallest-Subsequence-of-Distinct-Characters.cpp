@@ -1,29 +1,28 @@
 class Solution {
 public:
-    string smallestSubsequence(string &s) {
-        unordered_map<int, int> mp;
-        unordered_map<int, int> aa;
+    string smallestSubsequence(string s) {
+        stack<char> st;
+        string ans = "";
+        vector<int> mp(26, 0);
+        vector<int> u(26, 0);
 
-        for(char &ch : s) mp[ch]++;
+        for (char ch : s)
+            mp[ch - 'a']++;
 
-        stack<int> st;
-
-        for(char &ch : s) {
-            mp[ch]--;
-            if(aa[ch]) continue;
-
-            while(!st.empty() && st.top() > ch && mp[st.top()]) {
-                aa[st.top()] = false;
+        for (char ch : s) {
+            mp[ch - 'a']--;
+            if (u[ch - 'a'])
+                continue;
+            while (!st.empty() && st.top() >= ch && mp[st.top() - 'a']) {
+                u[st.top() - 'a'] = 0;
                 st.pop();
             }
-
             st.push(ch);
-            aa[ch] = true;
+
+            u[ch - 'a'] = 1;
         }
 
-        string ans = "";
-
-        while(!st.empty()) {
+        while (!st.empty()) {
             ans += st.top();
             st.pop();
         }
@@ -31,6 +30,5 @@ public:
         reverse(ans.begin(), ans.end());
 
         return ans;
-
     }
 };
