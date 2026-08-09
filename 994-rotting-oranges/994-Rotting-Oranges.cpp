@@ -1,0 +1,79 @@
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+        int m = grid.size();
+        int n = grid[0].size();
+        
+        vector<vector<int>> vis(m, vector<int>(n, 0));
+        queue<pair<int, int>> q;
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(grid[i][j] == 2) {
+                    q.push({i, j});
+                    vis[i][j] = true;
+                }
+            }
+        }
+
+        int ans = -1;
+
+        while(!q.empty()) {
+            int s = q.size();
+
+            while(s--) {
+
+                auto f = q.front();
+                q.pop();
+
+                int i = f.first, j = f.second;
+
+                if(i+1 < m && grid[i+1][j] == 1) {
+                        if(!vis[i+1][j]) {
+                        q.push({i+1, j});
+                        vis[i+1][j] = true;
+                        grid[i+1][j] = 2;
+                    }
+                }
+
+                if(i-1 >= 0 && grid[i-1][j] == 1) {
+                        if(!vis[i-1][j]) {
+                        q.push({i-1, j});
+                        vis[i-1][j] = true;
+                        grid[i-1][j] = 2;
+                    }
+                }
+                
+                if(j+1 < n && grid[i][j+1] == 1) {
+                        if(!vis[i][j+1]) {
+                        q.push({i, j+1});
+                        vis[i][j+1] = true;
+                        grid[i][j+1] = 2;
+                    }
+                }
+
+                if(j-1 >= 0 && grid[i][j-1] == 1) {
+                        if(!vis[i][j-1]) {
+                        q.push({i, j-1});
+                        vis[i][j-1] = true;
+                        grid[i][j-1] = 2;
+                    }
+                }
+
+            }
+
+            ans++;
+        }
+
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(grid[i][j] == 0) continue;
+                if(grid[i][j] == 1) {
+                    return -1;
+                }
+            }
+        }
+
+        return ans==-1 ? 0 : ans;
+    }
+};
