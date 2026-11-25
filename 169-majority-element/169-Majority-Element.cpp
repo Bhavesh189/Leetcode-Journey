@@ -1,18 +1,16 @@
 class Solution {
 public:
     int majorityElement(vector<int>& nums) {
-        int le = -1;
-        int f = 0;
+        int c = INT_MIN, v = 1;
 
         for(int x : nums) {
-            if(f==0) {
-                le = x;
-                f = 0;
-            }
-            if(x == le) f++;
-            else f--;
+            if(c == x) v++;
+            else if(v-1 == 0) {
+                c = x;
+                v = 1;
+            } else v--;
         }
 
-        return le;
+        return c;
     }
 };
